@@ -4,5 +4,17 @@ stages:
   - runScriptConfig:
       image: maven
       shellScript: mvn clean  package  -Dmaven.test.skip=true
+- name: build&push
+  steps:
+  - publishImageConfig:
+      dockerfilePath: ./Dockerfile
+      buildContext: .
+      tag: java_test/demo:v1
+      pushRemote: true
+      registry: 127.0.0.1:34280
+- name: deploy
+  steps:
+  - applyYamlConfig:
+      path: ./java_test.yaml
 timeout: 60
 notification: {}
