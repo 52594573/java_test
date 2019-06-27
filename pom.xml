@@ -413,17 +413,6 @@
         </dependency>
     </dependencies>
 
-    <!-- 部署路径 -->
-    <distributionManagement>
-        <repository>
-            <id>ktp-nexus-releases</id>
-            <url>http://192.168.11.216/nexus/content/repositories/releases/</url>
-        </repository>
-        <snapshotRepository>
-            <id>ktp-nexus-snapshot</id>
-            <url>http://192.168.11.216/nexus/content/repositories/snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>
 
     <repositories>
         <!--阿里云主仓库，代理了maven central和jcenter仓库-->
