@@ -1,0 +1,882 @@
+@charset "utf-8";
+/* CSS Document */
+/*	public*/
+body, html {
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    font-family: Helvetica, Arial, sans-serif;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: #FF6E00;
+}
+
+.CB {
+    clear: both;
+}
+
+.ContentContainer {
+    height: 100%;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.HeaderBar {
+    padding: 12px 16px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 100;
+}
+
+.HeaderBar .back {
+    background: rgba(0, 0, 0, 0.2) url(../images/icon_page_back.png) 12px center no-repeat;
+    background-size: 8px 13px;
+    height: 34px;
+    width: 34px;
+    border-radius: 17px;
+    display: block;
+}
+
+.ProductDetail {
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+.ProductDetail .detailWarp {
+    z-index: 1;
+    min-height: 100%;
+    width: 100%;
+}
+
+.ProductDetail .detailWarp img {
+    max-width: 100%;
+    display: block;
+}
+
+.ProductDetail .productCtrl {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 2;
+}
+
+.ProductDetail .productCtrl .bgShadow {
+    width: 100%;
+    height: 100%;
+    background: -webkit-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3)); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3)); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3)); /* Firefox 3.6 - 15 */
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3)); /* 标准的语法 */
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+.ProductDetail .productCtrl .contentWarp {
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    background: #fff;
+    margin: 0 8px 8px 8px;
+    z-index: 2;
+    position: relative;
+    padding: 8px 8px 52px 8px;
+    overflow: hidden;
+}
+
+.ProductDetail .productCtrl .price {
+    padding: 16px 8px 8px 8px;
+}
+
+.ProductDetail .productCtrl .price .now {
+    font-size: 24px;
+    font-weight: 700;
+    color: #FF6E00;
+    line-height: 30px;
+    margin-right: 5px;
+}
+
+.ProductDetail .productCtrl .price .default {
+    font-weight: lighter;
+    color: #666;
+    line-height: 20px;
+    padding-top: 10px;
+    text-decoration: line-through;
+    margin-right: 5px;
+}
+
+.ProductDetail .productCtrl .price .sold {
+    font-weight: lighter;
+    color: #666;
+    line-height: 20px;
+    padding-top: 10px;
+}
+
+.ProductDetail .productCtrl .detailContent {
+    padding: 1px;
+}
+
+.ProductDetail .productCtrl .productTitle {
+    color: #333333;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+    margin: 8px;
+    border-bottom: 1px solid #eee;
+    padding: 0 8px 8px 8px;
+}
+
+.ProductDetail .productCtrl .parmGroup {
+    border-bottom: 1px solid #eee;
+}
+
+.ProductDetail .productCtrl .parmGroup .title {
+    color: #333;
+    font-size: 14px;
+    padding: 10px 0 0 8px;
+    font-weight: 700;
+    line-height: 20px;
+    min-height: 20px;
+}
+
+.ProductDetail .productCtrl .parmGroup .parmSelecter {
+    padding: 4px 4px;
+}
+
+.ProductDetail .productCtrl .parmGroup .parmSelecter .parm {
+    font-size: 10px;
+    color: #666666;
+    border: 0.5px solid #eee;
+    border-radius: 2px;
+    min-width: 28px;
+    line-height: 16px;
+    padding: 4px 8px;
+    text-align: center;
+    margin: 4px;
+    display: block;
+    float: left;
+    min-height: 16px;
+}
+
+.ProductDetail .productCtrl .parmGroup .parmSelecter .parm.hover {
+    border-color: #FF6E00;
+    color: #fff;
+    background: #FF6E00;
+}
+
+.ProductDetail .productCtrl .numCtrl {
+    min-height: 30px;
+    padding: 15px 8px;
+}
+
+.ProductDetail .productCtrl .numCtrl .title {
+    color: #333;
+    font-size: 14px;
+    padding: 0;
+    font-weight: 700;
+    line-height: 30px;
+    min-height: 30px;
+    float: left;
+}
+
+.ProductDetail .productCtrl .numCtrl .numSelecter {
+    height: 28px;
+    width: 40px;
+    padding: 1px 29px;
+    background: #F1F3F5;
+    border-radius: 15px;
+    float: right;
+    position: relative;
+}
+
+.ProductDetail .productCtrl .numCtrl .numSelecter .btn {
+    width: 28px;
+    height: 28px;
+    background: #fff;
+    display: block;
+    position: absolute;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 14px;
+}
+
+.ProductDetail .productCtrl .numCtrl .numSelecter .btn.dec {
+    left: 1px;
+    top: 1px;
+    background-image: url(../images/icon_cart_dec_normal.png);
+    background-size: 10px 2px;
+}
+
+.ProductDetail .productCtrl .numCtrl .numSelecter .btn.dec.disable {
+    background-image: url(../images/icon_cart_dec_disable.png);
+}
+
+.ProductDetail .productCtrl .numCtrl .numSelecter .btn.add {
+    right: 1px;
+    top: 1px;
+    background-image: url(../images/icon_cart_add_normal.png);
+    background-size: 10px 10px;
+}
+
+.ProductDetail .productCtrl .numCtrl .numSelecter .btn.add.disable {
+    background-image: url(../images/icon_cart_add_disable.png);
+}
+
+.ProductDetail .productCtrl .numCtrl .numSelecter input {
+    width: 40px;
+    height: 28px;
+    line-height: 28px;
+    font-size: 14px;
+    color: #333;
+    text-align: center;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    outline: none;
+}
+
+.ProductDetail .productCtrl .btnGroup {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    background: #fff;
+}
+
+.ProductDetail .productCtrl .btnGroup .wrap {
+    display: flex;
+    border-top: 1px solid #eee;
+    margin: 0;
+    padding: 8px 0 0 0;
+}
+
+.ProductDetail .productCtrl .btnGroup .btn {
+    flex: 1;
+    margin-right: 8px;
+    display: block;
+    border: 1px solid #FF6E00;
+    box-sizing: border-box;
+    height: 35px;
+    text-align: center;
+    font-size: 16px;
+    line-height: 35px;
+    border-radius: 2px;
+}
+
+.ProductDetail .productCtrl .btnGroup .btn.highLight {
+    background: #FF6E00;
+    color: #fff;
+}
+
+.ProductDetail .productCtrl .btnGroup .btn:last-child {
+    margin-right: 0;
+}
+
+.Popup {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    opacity: 0;
+}
+
+.Popup .contentWrap {
+    width: 80%;
+    padding: 16px;
+    border-radius: 4px;
+    background: #fff;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+    position: relative;
+    margin: 0 auto;
+}
+
+.Popup .contentWrap .title {
+    height: 30px;
+    line-height: 30px;
+    margin-bottom: 16px;
+}
+
+.Popup .contentWrap .title .close {
+    font-size: 12px;
+    color: #FF6E00;
+    float: right;
+    height: 30px;
+    line-height: 30px;
+    display: block;
+}
+
+.Popup .contentWrap .title .txt {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.Popup .contentWrap .content {
+}
+
+.Popup .contentWrap .content .inputWrap {
+    background: #eee;
+    border-radius: 2px;
+    margin-bottom: 8px;
+    height: 45px;
+    border: none;
+}
+
+.Popup .contentWrap .content .inputWrap input {
+    background: none;
+    border: none;
+    font-size: 18px;
+    text-align: center;
+    line-height: 45px;
+    width: 100%;
+}
+
+.Popup .contentWrap .content .btnGroup {
+}
+
+.Popup .contentWrap .content .btnGroup .btn {
+    height: 45px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    line-height: 45px;
+    background: #FF6E00;
+    text-align: center;
+    border-radius: 2px;
+    display: block;
+}
+
+.SharePage {
+    width: 100%;
+    height: 100%;
+}
+
+.SharePage .shareBG {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.SharePage .shareBG img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.SharePage .shareContent {
+    position: absolute;
+    padding: 0;
+    z-index: 2;
+    width: 100%;
+}
+
+.SharePage .shareContent .contentBG {
+    display: none;
+}
+
+.SharePage .shareContent .contentWrap {
+    z-index: 2;
+    position: relative;
+}
+
+.SharePage .shareContent .slogan {
+    margin: 0 36px 30px 36px;
+}
+
+.SharePage .shareContent .slogan img {
+    width: 100%;
+}
+
+.SharePage .shareContent .txt {
+    text-align: center;
+    font-size: 12px;
+    color: #333;
+    background: #fff;
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.2);
+    font-weight: lighter;
+    line-height: 1.8em;
+    margin: 10px 15px;
+    padding: 15px 0 120px 0;
+}
+
+.SharePage .shareContent .txt p {
+    margin: 0;
+    padding: 0;
+}
+
+.SharePage .shareContent .txt .highlight {
+    color: #1c58a7;
+    margin: 0 3px;
+    flex:1;
+}
+
+.SharePage .shareContent .input {
+    height: 45px;
+    margin: 0;
+    width: 100%;
+    border-radius: 4px;
+    position: absolute;
+    left: 0;
+    bottom: 65px;
+}
+
+.SharePage .shareContent .input input {
+    width: -webkit-fill-available;
+    width: -moz-fill-available;
+    width: -moz-available; /* FireFox目前这个生效 */
+    width: fill-available;
+    height: 45px;
+    display: block;
+    margin: 0 25px;
+    padding: 0;
+    background: #dfdfdf;
+    outline: none;
+    text-align: center;
+    border: none;
+    border-radius: 4px;
+    color: #333;
+    font-size: 14px;
+}
+
+.SharePage .shareContent .arrow {
+    display: none;
+}
+
+.SharePage .shareContent .btn {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    height: 45px;
+}
+
+.SharePage .shareContent .btn a {
+    display: block;
+    background: #408CE2;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    height: 45px;
+    line-height: 45px;
+    margin: 0 25px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.Session {
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    background: #fff;
+    margin-bottom: 8px;
+}
+
+.Session:last-child {
+    margin-bottom: 0;
+}
+
+.Chartity {
+    padding: 8px 8px 61px 8px;
+    box-sizing: border-box;
+}
+
+.EventMain {
+}
+
+.EventMain .eventImg {
+    position: relative; /*对象不可层叠*/
+}
+
+.EventMain .eventImg .img {
+    border-radius: 4px 4px 0 0;
+    overflow: hidden;
+}
+
+.EventMain .eventImg .img img {
+    display: block;
+    width: 100%;
+}
+
+.EventMain .eventImg .content {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 20px 14px 10px 14px;
+    color: #fff;
+    background: -webkit-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
+    background: -o-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
+    background: -moz-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
+    background: -mos-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
+}
+
+.EventMain .eventImg .content .title {
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+    margin-bottom: 5px;
+}
+
+.EventMain .eventImg .content .sub {
+    font-weight: lighter;
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.EventMain .eventCount {
+    display: flex;
+    border-bottom: 1px solid #EEEEEE;
+    margin: 0 8px;
+    padding: 10px 0;
+}
+
+.EventMain .eventCount .count {
+    flex: 1;
+    text-align: center;
+}
+
+.EventMain .eventCount .count .num {
+    font-size: 24px;
+    color: #FF6E00;
+}
+
+.EventMain .eventCount .count .title {
+    color: #666;
+}
+
+.EventMain .eventIntro {
+    position: relative;
+}
+
+.EventMain .eventIntro.close .txtWrap {
+    color: #333;
+    font-size: 14px;
+    text-align: justify;
+    padding: 10px 10px 0 10px;
+    max-height: 80px;
+    overflow: hidden;
+}
+
+.EventMain .eventIntro.close .txtWrap:after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: 35px;
+    height: 100%;
+    max-height: 80px;
+    width: 100%;
+    background: -webkit-linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+    background: -o-linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+    background: -moz-linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+    background: -mos-linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+    background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+}
+
+.EventMain .eventIntro .btn {
+    display: block;
+    height: 35px;
+    background: url(../images/icon_down.png) center no-repeat;
+    background-size: 12px 5px;
+}
+
+.EventMain .eventIntro.open .txtWrap {
+    color: #333;
+    font-size: 14px;
+    text-align: justify;
+    padding: 10px;
+}
+
+.EventMain .eventIntro.open .btn {
+    transform: rotate(7deg);
+    -ms-transform: rotate(180deg); /* IE 9 */
+    -moz-transform: rotate(180deg); /* Firefox */
+    -webkit-transform: rotate(180deg); /* Safari 和 Chrome */
+    -o-transform: rotate(180deg);
+}
+
+/*.EventResultList{ position: relative; height: 193px; margin: 0 -8px; overflow: auto; padding: 0 8px; width: 100%; }
+.EventResultList .result{ position:absolute; left: 0; top: 0; width: 100%; }*/
+
+.ResultIntro {
+    padding: 10px;
+}
+
+.ResultIntro .avatar {
+    float: left;
+    width: 80px;
+    height: 40px;
+    position: relative;
+}
+
+.ResultIntro .avatar .img {
+    width: 38px;
+    height: 38px;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid #fff;
+    background: #eee;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+}
+
+.ResultIntro .avatar .img img {
+    display: block;
+    width: 100%;
+}
+
+.ResultIntro .avatar .img:last-child {
+    left: 30px;
+    z-index: 2;
+    line-height: 20px;
+}
+
+.ResultIntro .intro {
+    margin-left: 80px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 20px;
+    font-size: 12px;
+    color: #999999;
+}
+
+.ResultIntro .status {
+    margin-left: 80px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 20px;
+    font-size: 12px;
+    color: #999999;
+}
+
+.ResultIntro .namemane .benefitType {
+    float: right;
+    width: 20px;
+    height: 20px;
+
+}
+
+.ResultCommentList {
+    padding: 10px;
+}
+
+.ResultCommentList .txt {
+    color: #999;
+    font-size: 14px;
+    line-height: 18px;
+    margin-bottom: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ResultCommentList .list {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ResultCommentList .list .img {
+    display: inline-block;
+    width: 70px;
+    height: 70px;
+    background: #eee;
+    overflow: hidden;
+    border-radius: 2px;
+    margin-right: 5px;
+}
+
+.ResultCommentList .list .img img {
+    display: block;
+    width: 100%;
+}
+
+.EventResultList .result .ResultCommentList {
+    width: 100%;
+    height: 125px;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.EventObjList {
+    margin-bottom: 8px;
+}
+
+.EventObj {
+    margin-bottom: 8px;
+    padding: 15px 10px;
+    min-height: 80px;
+}
+
+.EventObj .img {
+    float: left;
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+}
+
+.EventObj .img img {
+    display: block;
+    width: 100%;
+}
+
+
+.EventObj .detail {
+    margin-left: 90px;
+    padding-bottom: 16px;
+    position: relative;
+    min-height: 64px;
+}
+
+.EventObj .detail .title {
+    font-size: 14px;
+    color: #333;
+    font-weight: bold;
+    word-break: break-all;
+}
+
+.EventObj .detail .info {
+    position: absolute;
+    width: 100%;
+    height: 16px;
+    left: 0;
+    bottom: 0;
+}
+
+.EventObj .detail .info .fr {
+    float: right;
+    text-align: right;
+}
+
+.EventObj .detail .info .fr .txt {
+    display: inline-block;
+    margin-left: 5px;
+    background: #F4F4F4;
+    color: #666;
+    font-weight: lighter;
+    font-size: 10px;
+    line-height: 16px;
+    padding: 0 10px;
+}
+
+.EventObj .detail .info .count {
+    color: #FF6E00;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.EventObjList > .more {
+    display: block;
+    height: 45px;
+    line-height: 45px;
+    color: #999;
+    text-align: center;
+}
+
+.BottomBtn {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    width: 100%;
+    height: 61px;
+    padding: 8px;
+    box-sizing: border-box;
+    background: #fff;
+}
+
+.BottomBtn a {
+    flex: 1;
+    display: block;
+    line-height: 45px;
+    text-align: center;
+    color: #fff;
+    background: #FF6E00;
+    font-size: 14px;
+}
+
+.BottomBtn a:first-child {
+    background: #ff6e00;
+    color: #eeeeee;
+    border: 1px solid #eee;
+}
+
+.BottomBtn span {
+    display: block;
+    width: 8px;
+}
+
+
+.BottomDocAttr {
+    float: left;
+    padding-left: 5px;
+}
+
+.BottomDocAttr a {
+    width: 42px;
+    height: 16px;
+    background: rgba(244, 244, 244, 1);
+    border-radius: 2px;
+    font-size: 10px;
+    font-weight: 300;
+    color: rgba(102, 102, 102, 1);
+    line-height: 16px;
+    padding-top: 4px;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-bottom: 4px;
+    margin-left: 10px;
+}
+
+
+.DonateDetailObjList {
+    margin-bottom: 8px;
+}
+
+.DonateDetailObj {
+    margin-bottom: 8px;
+    padding: 15px 10px;
+    min-height: 80px;
+}
+
+.DonateDetailObj .img {
+    float: left;
+    width: 360px;
+    height: 360px;
+    overflow: hidden;
+}
+
+.DonateDetailObj .img img {
+    display: block;
+    width: 100%;
+}
+
+
+
+
+
+
+
+
+	

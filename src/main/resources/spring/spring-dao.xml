@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!-- 配置整合mybatis过程 -->
+    <!-- 1.配置数据库相关参数properties的属性：${url} -->
+    <context:property-placeholder location="classpath:properties/*.properties" file-encoding="UTF-8"/>
+
+    <!-- 配置连接池Druid  -->
+    <bean id="dataSource" class="com.ktp.project.util.DecryptDruidSourceFactory">
+        <property name="connectionInitSqls" value="set names utf8mb4"/>
+        <property name="driverClassName" value="${mysql.driverClassName}"/>
+        <property name="url" value="${mysql.url}"/>
+        <property name="username" value="${mysql.username}"/>
+        <property name="password" value="${mysql.password}"/>
+        <!-- config.decrypt=true -->
+        <property name="filters" value="config"/>
+        <property name="connectionProperties" value="config.decrypt=true"/>
+        <!-- 初始化连接大小 -->
+        <property name="initialSize" value="${druid.initialSize}"/>
+        <!-- 连接池最大使用连接数量 -->
+        <property name="maxActive" value="${druid.maxActive}"/>
+        <!-- 连接池最大空闲 这个参数已经被弃用 <property name="maxIdle" value="${maxIdle}"></property> -->
+        <!-- 连接池最小空闲 -->
+        <property name="minIdle" value="${druid.minIdle}"></property>
+        <!-- 获取连接最大等待时间 -->
+        <property name="maxWait" value="${druid.maxWait}"></property>
+        <property name="validationQuery" value="${druid.validationQuery}"/>
+        <property name="testWhileIdle" value="${druid.testWhileIdle}"/>
+        <property name="testOnBorrow" value="${druid.testOnBorrow}"/>
+        <property name="testOnReturn" value="${druid.testOnReturn}"/>
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="${druid.timeBetweenEvictionRunsMillis}"/>
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="${druid.minEvictableIdleTimeMillis}"/>
+        <!-- 关闭长时间不使用的连接 -->
+        <!-- 打开removeAbandoned功能 -->
+        <property name="removeAbandoned" value="${druid.removeAbandoned}"/>
+        <!-- 1200秒，也就是20分钟 -->
+        <property name="removeAbandonedTimeout" value="${druid.removeAbandonedTimeout}"/>
+        <!-- 关闭abanded连接时输出错误日志 -->
+        <property name="logAbandoned" value="${druid.logAbandoned}"/>
+        <!-- 是否缓存preparedStatement，也就是PSCache -->
+        <property name="poolPreparedStatements" value="${druid.poolPreparedStatements}"/>
+        <!-- 要启用PSCache，必须配置大于0，当大于0时，poolPreparedStatements自动触发修改为true -->
+        <property name="maxOpenPreparedStatements" value="${druid.maxOpenPreparedStatements}"/>
+    </bean>
+
+    <!--配置session工厂-->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop> <!--hibernate根据实体自动生成数据库表-->
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>   <!--指定数据库方言-->
+                <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>     <!--在控制台显示执行的数据库操作语句-->
+                <prop key="hibernate.format_sql">${hibernate.format_sql}</prop>     <!--在控制台显示执行的数据哭操作语句（格式）-->
+                <prop key="hibernate.connection.autocommit">true</prop>
+                <prop key="hibernate.current_session_context_class">
+                    org.springframework.orm.hibernate4.SpringSessionContext
+                </prop>
+                <!--
+                它包含4个属性:
+                * create : 会根据你的model类来生成表,但是每次运行都会删除上一次的表,重新生成表,哪怕2次没有任何改变
+                * create-drop : 根据model类生成表,但是sessionFactory一关闭,表就自动删除
+                * update : 最常用的属性，也根据model类生成表,即使表结构改变了,表中的行仍然存在,不会删除以前的行
+                * validate : 只会和数据库中的表进行比较,不会创建新表,但是会插入新值
+                 -->
+                <prop key="hbm2ddl.auto">update</prop>
+                <!--自动链接-->
+                <prop key="hibernate.autoReconnect">true</prop>
+            </props>
+        </property>
+
+        <!-- 使用通配符 Resources -->
+        <property name="annotatedClasses">
+            <list>
+                <value>com.ktp.project.entity.SixZj</value>
+                <value>com.ktp.project.entity.MallOrder</value>
+                <value>com.ktp.project.entity.MallGood</value>
+                <value>com.ktp.project.entity.MallGoodAttr</value>
+                <value>com.ktp.project.entity.MallGoodOrder</value>
+                <value>com.ktp.project.entity.MallOrderRefund</value>
+                <value>com.ktp.project.entity.MallAttr</value>
+                <value>com.ktp.project.entity.UserToken</value>
+                <value>com.ktp.project.entity.UserSfz</value>
+                <value>com.ktp.project.entity.UserBank</value>
+                <value>com.ktp.project.entity.SysBank</value>
+                <value>com.ktp.project.entity.MallSort</value>
+                <value>com.ktp.project.entity.MallGet</value>
+                <value>com.ktp.project.entity.MallCar</value>
+                <value>com.ktp.project.entity.ShareRecord</value>
+                <value>com.ktp.project.entity.ShareCommit</value>
+                <value>com.ktp.project.entity.KaoQinLocation</value>
+                <value>com.ktp.project.entity.JobLooking</value>
+                <value>com.ktp.project.entity.JobList</value>
+                <value>com.ktp.project.entity.JobApply</value>
+                <value>com.ktp.project.entity.UserActive</value>
+                <value>com.ktp.project.entity.Sms</value>
+                <value>com.ktp.project.entity.ChatFriend</value>
+                <value>com.ktp.project.entity.ChatIgnore</value>
+                <value>com.ktp.project.entity.BenefitActivity</value>
+                <value>com.ktp.project.entity.BenefitDonate</value>
+                <value>com.ktp.project.entity.BenefitRecipient</value>
+                <value>com.ktp.project.entity.BenefitEvaluate</value>
+                <value>com.ktp.project.entity.PushLogCircle</value>
+                <value>com.ktp.project.entity.WorkLogGather</value>
+                <value>com.ktp.project.entity.WorkLog</value>
+                <value>com.ktp.project.entity.WorkLogParamer</value>
+                <value>com.ktp.project.entity.ProWork</value>
+                <value>com.ktp.project.entity.ProxyClockIn</value>
+                <value>com.ktp.project.entity.ClockInFailure</value>
+                <value>com.ktp.project.entity.MassageConfig</value>
+                <value>com.ktp.project.entity.MassageSwitch</value>
+                <value>com.ktp.project.entity.AuthRealName</value>
+                <value>com.ktp.project.entity.AuthRealNameLog</value>
+                <value>com.ktp.project.entity.AuthKaoQinCallBack</value>
+                <value>com.ktp.project.entity.GmProjectInfoEntity</value>
+                <value>com.ktp.project.entity.KtpErrorLogEntity</value>
+                <!--<value>com.ktp.project.entity.PushLogBenefit</value>-->
+                <value>com.ktp.project.entity.PushLogBenefit</value>
+                <value>com.ktp.project.entity.UserJf</value>
+                <value>com.ktp.project.entity.Advertise</value>
+                <value>com.ktp.project.entity.HatchUserRole</value>
+                <value>com.zm.entity.CcbPush</value>
+                <value>com.ktp.project.entity.UserCard</value>
+                <value>com.ktp.project.entity.OpenapiInitProject</value>
+            </list>
+        </property>
+        <property name="mappingResources">
+            <list>
+                <value>/com/zm/entity/UserInfo.hbm.xml</value>
+                <value>/com/zm/entity/KeyContent.hbm.xml</value>
+                <value>/com/zm/entity/Project.hbm.xml</value>
+                <value>/com/zm/entity/ProOrgan.hbm.xml</value>
+                <value>/com/zm/entity/ChatGroup.hbm.xml</value>
+                <value>/com/zm/entity/ProOrganPer.hbm.xml</value>
+                <value>/com/zm/friendCircle/entity/ZmFriendCircle.hbm.xml</value>
+                <value>/com/zm/friendCircle/entity/ZmFriendCircleAlbum.hbm.xml</value>
+                <value>/com/zm/friendCircle/entity/ZmFriendCircleComment.hbm.xml</value>
+                <value>/com/zm/friendCircle/entity/ZmFriendCircleLike.hbm.xml</value>
+                <value>/com/zm/friendCircle/entity/ZmFriendCircleShuoshuo.hbm.xml</value>
+                <value>/com/zm/friendCircle/entity/ZmEmployeeCircle.hbm.xml</value>
+                <value>/com/zm/friendCircle/entity/ZmEmployerCircle.hbm.xml</value>
+                <value>/com/zm/friendCircle/entity/ZmRefusedLook.hbm.xml</value>
+                <value>/com/zm/friendCircle/entity/ZmNetworkArticle.hbm.xml</value>
+                <value>/com/zm/entity/CcbPush.hbm.xml</value>
+            </list>
+        </property>
+
+    </bean>
+
+    <!--&lt;!&ndash; 3.配置SqlSessionFactory对象 &ndash;&gt;-->
+    <!--<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">-->
+    <!--&lt;!&ndash; 注入数据库连接池 &ndash;&gt;-->
+    <!--<property name="dataSource" ref="dataSource" />-->
+    <!--&lt;!&ndash; 配置MyBaties全局配置文件:mybatis-config.xml &ndash;&gt;-->
+    <!--<property name="configLocation" value="classpath:mybatis-config.xml" />-->
+    <!--&lt;!&ndash; 扫描entity包 使用别名 &ndash;&gt;-->
+    <!--<property name="typeAliasesPackage" value="com.ktp.project.entity" />-->
+    <!--&lt;!&ndash; 扫描sql配置文件:mapper需要的xml文件 &ndash;&gt;-->
+    <!--<property name="mapperLocations" value="classpath:mapper/*.xml" />-->
+    <!--</bean>-->
+
+    <!-- 事物管理器配置  -->
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <!-- 开启通过注解@Transactional管理事务 -->
+    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+
+    <bean id="userInfoDao" class="com.zm.entity.UserInfoDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
+
+    <bean id="chatFriendDao" class="com.zm.entity.ChatFriendDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
+
+    <bean id="keyContentDao" class="com.zm.entity.KeyContentDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
+    <bean id="projectDao" class="com.zm.entity.ProjectDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
+    <bean id="proOrganDao" class="com.zm.entity.ProOrganDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
+    <bean id="chatGroupDao" class="com.zm.entity.ChatGroupDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
+    <bean id="ChatGroupDAO" class="com.zm.entity.ChatGroupDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
+    <bean id="proOrganPerDao" class="com.zm.entity.ProOrganPerDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
+    <bean id="friendCircleCommentDao"
+          class="com.zm.friendCircle.entity.ZmFriendCircleCommentDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
+    <bean id="friendCircleAlbumDao"
+          class="com.zm.friendCircle.entity.ZmFriendCircleAlbumDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
+    <bean id="friendCircleDao"
+          class="com.zm.friendCircle.entity.ZmFriendCircleDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
+    <bean id="friendCircleShuoshuoDao"
+          class="com.zm.friendCircle.entity.ZmFriendCircleShuoshuoDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
+    <bean id="friendCircleLikeDao"
+          class="com.zm.friendCircle.entity.ZmFriendCircleLikeDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
+    <bean id="dataBaseDao" class="com.ktp.project.dao.DataBaseDao">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
+    <bean id="jobDao" class="com.ktp.project.dao.JobDao">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
+    <bean id="userActiveDao" class="com.ktp.project.dao.UserActiveDao">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
+    <bean id="employerCircleDao"
+          class="com.zm.friendCircle.entity.ZmEmployerCircleDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
+    <bean id="employeeCircleDao"
+          class="com.zm.friendCircle.entity.ZmEmployeeCircleDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
+
+    <bean id="refusedLookDao"
+          class="com.zm.friendCircle.entity.ZmRefusedLookDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
+    <bean id="networkArticleDao"
+          class="com.zm.friendCircle.entity.ZmNetworkArticleDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
+
+</beans>

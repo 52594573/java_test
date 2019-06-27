@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ktp.project.dao.SixZjDao">
+	<!-- 目的：为dao接口方法提供sql语句配置 -->
+	<select id="queryAll" resultType="SixZj">
+		SELECT
+			id,
+			pro_id,
+			pic1
+		FROM
+			six_zj
+		WHERE
+		    in_img_qiniu is null
+		ORDER BY
+			id
+		LIMIT #{offset}, #{limit}
+	</select>
+
+	<update  id="updatePic">
+		UPDATE six_zj SET in_img_qiniu = #{path} WHERE id = #{id}
+	</update>
+</mapper>

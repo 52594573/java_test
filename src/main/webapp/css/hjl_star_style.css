@@ -1,0 +1,17 @@
+/* 星星点灯照亮我的家门 */
+.starbg {
+    background: url(../images/start_nosel.png);
+    width: 93px;
+    height: 16px;
+}
+.starbg div {
+    background: url(../images/start_sel.png);
+    height: 100%;
+}
+
+/* for IE6-IE8 JS 交互 */
+/*.star_checked {*/
+    /*background: url(../images/start_sel.png) repeat-x;*/
+    /*left: 0;*/
+    /*z-index: 1;*/
+/*}*/

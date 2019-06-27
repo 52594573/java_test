@@ -1,0 +1,14 @@
+#Eclipse
+.project
+.classpath
+.settings
+
+#IntelliJ IDEA
+.idea
+.idea/workspace.xml
+target
+*.iml
+classes
+cd..
+ktp.iml
+.idea/vcs.xml
